@@ -6,15 +6,15 @@
 const express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    app = express()
-//noinspection JSUnresolvedVariable,JSUnresolvedFunction
+    cors = require('cors');
+    app = express(),
     router = require('./router');
 
 mongoose.connect('mongodb://willylu:willylu@ds119718.mlab.com:19718/emp-db');
 app.use(bodyParser.urlencoded( {extended: true} ));
 app.use(bodyParser.json());
 
-app.use('', router);
+app.use('', cors(), router);
 
 // 404 Error
 app.get('*', function(req, res) {

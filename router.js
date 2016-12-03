@@ -21,7 +21,9 @@ router.post('/users', function(req, res) {
     });
 
     emp.save(function(err, emp) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        };
         res.json(emp);
     })
 });
@@ -48,19 +50,19 @@ router.get('/users/:name', function(req, res) {
 // Update
 router.put('/users/:name', function(req, res) {
     const name = req.params.name;
+    console.log(name);
     Emp.findOne({name: name}, function(err, doc) {
         if (!doc) {
             return res.json('No User');
         }
         const body = req.body;
+        console.log(body);
         doc.address.city = body.address.city;
         doc.address.state = body.address.state;
         doc.age = body.age;
 
-        doc.save(function(err) {
-            if (err) throw err;
-            res.json(doc);
-        })
+        doc.save();
+        res.json('Update');
     })
 });
 
